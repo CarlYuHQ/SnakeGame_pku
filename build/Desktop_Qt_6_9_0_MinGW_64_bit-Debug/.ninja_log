@@ -1,0 +1,26 @@
+# ninja log v6
+4	649	7699475814680783	build.ninja	3a7e3784317d201b
+10	688	7699612813609905	D:/QTproject/snakegame/build/Desktop_Qt_6_9_0_MinGW_64_bit-Debug/snakegame_autogen/mocs_compilation.cpp	d383900169015b9a
+3	28	7699610105376775	CMakeFiles/clean.additional	c313c7df7a6a27c5
+10	688	7699612813609905	D:/QTproject/snakegame/build/Desktop_Qt_6_9_0_MinGW_64_bit-Debug/snakegame_autogen/timestamp	d383900169015b9a
+748	2455	7699610113719025	CMakeFiles/snakegame.dir/snakegame.cpp.obj	67de707f11595ed1
+28	36	7699610105627361	clean	c6b33aad8e4c4d0
+10	688	7699612813609905	snakegame_autogen/timestamp	d383900169015b9a
+10	688	7699612813609905	snakegame_autogen/mocs_compilation.cpp	d383900169015b9a
+750	2490	7699610113739023	CMakeFiles/snakegame.dir/snake.cpp.obj	25ffad46e2b6fb84
+689	3362	7699612814659870	CMakeFiles/snakegame.dir/snakegame_autogen/mocs_compilation.cpp.obj	f91c03cbeb6afbbe
+691	3196	7699612814689900	CMakeFiles/snakegame.dir/main.cpp.obj	3eaf9d439cfb1e52
+693	3553	7699612814709903	CMakeFiles/snakegame.dir/gamewidget.cpp.obj	813a7c2f0217e922
+3553	3875	7699612843305122	snakegame.exe	5bfd0995aa154c3
+10	192	7699664985754711	snakegame_autogen/timestamp	d383900169015b9a
+10	192	7699664985754711	snakegame_autogen/mocs_compilation.cpp	d383900169015b9a
+10	192	7699664985754711	D:/QTproject/snakegame/build/Desktop_Qt_6_9_0_MinGW_64_bit-Debug/snakegame_autogen/timestamp	d383900169015b9a
+10	192	7699664985754711	D:/QTproject/snakegame/build/Desktop_Qt_6_9_0_MinGW_64_bit-Debug/snakegame_autogen/mocs_compilation.cpp	d383900169015b9a
+193	2775	7699664987594744	CMakeFiles/snakegame.dir/gamewidget.cpp.obj	813a7c2f0217e922
+2775	3118	7699665013415880	snakegame.exe	5bfd0995aa154c3
+9	167	7699665449802939	snakegame_autogen/timestamp	d383900169015b9a
+9	167	7699665449802939	snakegame_autogen/mocs_compilation.cpp	d383900169015b9a
+9	167	7699665449802939	D:/QTproject/snakegame/build/Desktop_Qt_6_9_0_MinGW_64_bit-Debug/snakegame_autogen/timestamp	d383900169015b9a
+9	167	7699665449802939	D:/QTproject/snakegame/build/Desktop_Qt_6_9_0_MinGW_64_bit-Debug/snakegame_autogen/mocs_compilation.cpp	d383900169015b9a
+168	2523	7699665451388165	CMakeFiles/snakegame.dir/gamewidget.cpp.obj	813a7c2f0217e922
+2523	2860	7699665474942815	snakegame.exe	5bfd0995aa154c3

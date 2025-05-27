@@ -1,0 +1,23 @@
+# ninja log v6
+9	1433	7699665771199191	snakegame_autogen/timestamp	d12fa4cd6bab425b
+9	1433	7699665771199191	snakegame_autogen/mocs_compilation.cpp	d12fa4cd6bab425b
+9	1433	7699665771199191	D:/QTproject/snakegame/build/Desktop_Qt_6_9_0_MinGW_64_bit-Release/snakegame_autogen/timestamp	d12fa4cd6bab425b
+9	1433	7699665771199191	D:/QTproject/snakegame/build/Desktop_Qt_6_9_0_MinGW_64_bit-Release/snakegame_autogen/mocs_compilation.cpp	d12fa4cd6bab425b
+1458	5121	7699665773969188	CMakeFiles/snakegame.dir/snakegame.cpp.obj	f8f7f3ac0272d03f
+1462	5335	7699665774009190	CMakeFiles/snakegame.dir/snake.cpp.obj	e27d0dd336a2eb41
+1451	6316	7699665773909194	CMakeFiles/snakegame.dir/main.cpp.obj	64a561596ca548d
+1448	6430	7699665773869190	CMakeFiles/snakegame.dir/snakegame_autogen/mocs_compilation.cpp.obj	be8a764e0c0c6f2d
+1455	6815	7699665773939184	CMakeFiles/snakegame.dir/gamewidget.cpp.obj	d246de913f143cad
+6815	7203	7699665827541699	snakegame.exe	48af6c0c66fee8b5
+11	220	7699673645670317	snakegame_autogen/timestamp	d12fa4cd6bab425b
+11	220	7699673645670317	snakegame_autogen/mocs_compilation.cpp	d12fa4cd6bab425b
+11	220	7699673645670317	D:/QTproject/snakegame/build/Desktop_Qt_6_9_0_MinGW_64_bit-Release/snakegame_autogen/timestamp	d12fa4cd6bab425b
+11	220	7699673645670317	D:/QTproject/snakegame/build/Desktop_Qt_6_9_0_MinGW_64_bit-Release/snakegame_autogen/mocs_compilation.cpp	d12fa4cd6bab425b
+221	2652	7699673647770335	CMakeFiles/snakegame.dir/gamewidget.cpp.obj	d246de913f143cad
+2652	2873	7699673672080435	snakegame.exe	48af6c0c66fee8b5
+10	210	7699675744171340	snakegame_autogen/timestamp	d12fa4cd6bab425b
+10	210	7699675744171340	snakegame_autogen/mocs_compilation.cpp	d12fa4cd6bab425b
+10	210	7699675744171340	D:/QTproject/snakegame/build/Desktop_Qt_6_9_0_MinGW_64_bit-Release/snakegame_autogen/timestamp	d12fa4cd6bab425b
+10	210	7699675744171340	D:/QTproject/snakegame/build/Desktop_Qt_6_9_0_MinGW_64_bit-Release/snakegame_autogen/mocs_compilation.cpp	d12fa4cd6bab425b
+211	2445	7699675746175846	CMakeFiles/snakegame.dir/gamewidget.cpp.obj	d246de913f143cad
+2445	2693	7699675768514264	snakegame.exe	48af6c0c66fee8b5
