@@ -1,1 +1,1 @@
-# snakegame
+# snakegame for PKUers
