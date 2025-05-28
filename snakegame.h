@@ -15,7 +15,7 @@ public:
 };
 class Snakegame{
     int width, height;
-    Snake snake;
+
     QList<Food> food;
     bool game_over;
     void foodStep();
@@ -23,6 +23,7 @@ class Snakegame{
     QList<Food>::iterator foodPoint(const QPoint& p);
     QList<Bullet> bullets; // 新增子弹列表
 public:
+    Snake snake;
     Snakegame(int width, int height, int init_len, const QPoint& init_head, char init_dir);
     void reset(int init_len, const QPoint& init_head, char init_dir);
     bool step();

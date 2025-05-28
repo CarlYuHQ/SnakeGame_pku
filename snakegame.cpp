@@ -135,7 +135,8 @@ bool Snakegame::step() {
                 QList<QPoint> body = snake.getSnake();
                 if (body.size() > 1) {
                     body.pop_back();
-                    snake.reset(body.size(), body.front(), snake.getDirection());
+                    //snake.reset(body.size(), body.front(), snake.getDirection());
+                    snake.setBody(body); // 使用新方法更新蛇身
                 } else {
                     game_over = true;
                     return false;

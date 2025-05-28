@@ -3,7 +3,7 @@
 
 const int Width = 50;
 const int Height = 50;
-const int Init_len = 3;
+const int Init_len = 4;
 const QPoint Init_head({8, 8});
 const char Init_dir = 'r';
 
@@ -145,6 +145,8 @@ void GameWidget::keyPressEvent(QKeyEvent* event)    //在一个step内的所有�
             game.reset(Init_len, Init_head, Init_dir);
             timer->start(t);
             game_over = 0;
+            game.snake.hasShield=false;
+            game.snake.isInvincible=false;
             update();
         }
         return;

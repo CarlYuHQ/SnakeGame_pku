@@ -5,10 +5,11 @@
 class Snake {
     QList<QPoint> snake_body;
     char direction;
-    bool isInvincible = false;
+
 
 
 public:
+    bool isInvincible = false;
     bool hasShield = false;
     Snake(int len, const QPoint& head, char dir);
     void reset(int len, const QPoint& head, char dir);
@@ -27,7 +28,7 @@ public:
     bool func_hasShield() const { return hasShield; }
     void activateShield() { hasShield = true; }
 
-
+    void setBody(const QList<QPoint>& newBody) { snake_body = newBody; }
 
     QTimer invincibleTimer;
 };
