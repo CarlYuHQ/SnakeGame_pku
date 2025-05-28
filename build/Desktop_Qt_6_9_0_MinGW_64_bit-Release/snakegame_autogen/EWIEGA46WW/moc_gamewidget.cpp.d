@@ -405,5 +405,7 @@ D:/QTproject/snakegame/build/Desktop_Qt_6_9_0_MinGW_64_bit-Release/snakegame_aut
   D:/QT/Tools/mingw1310_64/x86_64-w64-mingw32/include/time.h \
   D:/QT/Tools/mingw1310_64/x86_64-w64-mingw32/include/vadefs.h \
   D:/QT/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h \
+  D:/QTproject/snakegame/bullet.h \
+  D:/QTproject/snakegame/obstacle.h \
   D:/QTproject/snakegame/snake.h \
   D:/QTproject/snakegame/snakegame.h

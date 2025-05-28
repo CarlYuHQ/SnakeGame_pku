@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-c1f2016e46dd338ea3d0.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "snakegame",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "snakegame::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-snakegame-Release-7a34e90beef9e72fa63f.json",
+					"name" : "snakegame",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "snakegame_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-snakegame_autogen-Release-776048577d9b90f20808.json",
+					"name" : "snakegame_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "snakegame_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-snakegame_autogen_timestamp_deps-Release-dc0bc70d33d76124ba54.json",
+					"name" : "snakegame_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/QTproject/snakegame/build/Desktop_Qt_6_9_0_MinGW_64_bit-Release",
+		"source" : "D:/QTproject/snakegame"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}
