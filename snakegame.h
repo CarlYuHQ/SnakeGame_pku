@@ -1,6 +1,8 @@
 #pragma once
-
+#include <QTimer>
+#include "obstacle.h"
 #include "snake.h"
+#include "bullet.h"
 using namespace std;
 class Food {
     int remaining_time;
@@ -19,6 +21,7 @@ class Snakegame{
     void foodStep();
     bool deadPoint(const QPoint& p);
     QList<Food>::iterator foodPoint(const QPoint& p);
+    QList<Bullet> bullets; // 新增子弹列表
 public:
     Snakegame(int width, int height, int init_len, const QPoint& init_head, char init_dir);
     void reset(int init_len, const QPoint& init_head, char init_dir);
@@ -27,8 +30,18 @@ public:
     void generateFood(int remainingtime);
 
     bool isGameOver() const;
-    const Snake& getSnake() const;
+    Snake& getSnake();
     QList<Food> getFood() const;
     int getWidth() const;
     int getHeight() const;
+
+    QList<Obstacle> obstacles; // 新增障碍物列表
+    //
+    void generateObstacle(Obstacle::Type type);
+    QList<Obstacle> getObstacles() const;
+
+    void fireBullet();
+    QList<Bullet> getBullets() const;
+
+    void clearObstacles() { obstacles.clear(); }//清除障碍物的方法
 };
