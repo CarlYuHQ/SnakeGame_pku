@@ -22,8 +22,8 @@ private:
     int gridSize = 20;
     int width;
     int height;
-    int min_foodGenerate_time = 8;
-    int max_foodGenerate_time = 20;
+    int min_foodGenerate_time = 2;
+    int max_foodGenerate_time = 15;
     int food_remaining_time = 50;
     bool game_over = 0;
     int t = 200;
@@ -35,5 +35,7 @@ private:
     void drawGrid(QPainter& painter);
     void drawSnake(QPainter& painter);
     void drawFood(QPainter& painter);
+    void drawObstacles(QPainter& painter);
+    void drawBullets(QPainter& painter);
 signals:
 };

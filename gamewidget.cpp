@@ -1,8 +1,8 @@
 #include "gamewidget.h"
 #include <QMessageBox>
 
-const int Width = 20;
-const int Height = 20;
+const int Width = 50;
+const int Height = 50;
 const int Init_len = 3;
 const QPoint Init_head({8, 8});
 const char Init_dir = 'r';
@@ -15,6 +15,11 @@ GameWidget::GameWidget(QWidget* parent)
     timer->start(t);
     srand(time(NULL));
     foodGenerate_time = rand() % (max_foodGenerate_time - min_foodGenerate_time) + min_foodGenerate_time;
+    // 生成50个障碍物（25硬+25软）
+    for (int i = 0; i < 25; i++) {
+        game.generateObstacle(Obstacle::HARD);
+        game.generateObstacle(Obstacle::SOFT);
+    }
 }
 
 void GameWidget::paintEvent(QPaintEvent*) {
@@ -23,6 +28,8 @@ void GameWidget::paintEvent(QPaintEvent*) {
     drawGrid(painter);
     drawSnake(painter);
     drawFood(painter);
+    drawObstacles(painter);
+    drawBullets(painter);
 }
 
 void GameWidget::drawGrid(QPainter& painter) {
@@ -36,8 +43,18 @@ void GameWidget::drawGrid(QPainter& painter) {
 }
 
 void GameWidget::drawSnake(QPainter& painter) {
-    painter.setBrush(Qt::green);
-    for (const QPoint& p : game.getSnake().getSnake()) {
+    const Snake& snake = game.getSnake();
+
+    // 护盾优先级高于无敌
+    if (snake.func_hasShield()) { // 使用访问方法
+        painter.setBrush(QColor(0, 255, 255)); // 青色
+    } else if (snake.func_isInvincible()) {
+        painter.setBrush(QColor(255, 215, 0)); // 金色
+    } else {
+        painter.setBrush(Qt::green);
+    }
+
+    for (const QPoint& p : snake.getSnake()) {
         painter.drawRect(p.x() * gridSize, p.y() * gridSize, gridSize, gridSize);
     }
 }
@@ -47,6 +64,30 @@ void GameWidget::drawFood(QPainter& painter) {
     for (const Food& f : game.getFood()) {
         QPoint p = f.getLocation();
         painter.drawEllipse(p.x() * gridSize, p.y() * gridSize, gridSize, gridSize);
+    }
+}
+
+void GameWidget::drawObstacles(QPainter& painter) {
+    for (const Obstacle& obs : game.getObstacles()) {
+        QPoint p = obs.getLocation();
+        // 硬障碍物：深灰色矩形
+        if (obs.getType() == Obstacle::HARD) {
+            painter.setBrush(QColor(100, 100, 100)); // 深灰色
+            painter.drawRect(p.x() * gridSize, p.y() * gridSize, gridSize, gridSize);
+        }
+        // 软障碍物：黄色矩形
+        else {
+            painter.setBrush(Qt::yellow);
+            painter.drawRect(p.x() * gridSize, p.y() * gridSize, gridSize, gridSize);
+        }
+    }
+}
+
+void GameWidget::drawBullets(QPainter& painter) {
+    painter.setBrush(Qt::blue);
+    for (const Bullet& b : game.getBullets()) {
+        QPoint p = b.getPosition();
+        painter.drawRect(p.x() * gridSize, p.y() * gridSize, 5, 5); // 小矩形表示子弹
     }
 }
 
@@ -104,6 +145,7 @@ void GameWidget::keyPressEvent(QKeyEvent* event)    //在一个step内的所有�
             game.reset(Init_len, Init_head, Init_dir);
             timer->start(t);
             game_over = 0;
+            update();
         }
         return;
     }
@@ -112,9 +154,19 @@ void GameWidget::keyPressEvent(QKeyEvent* event)    //在一个step内的所有�
         new_step = 0;
     }
     switch (event->key()) {
-    case Qt::Key_Up:    changedir_lst.push_back('u'); break;
-    case Qt::Key_Down:  changedir_lst.push_back('d'); break;
-    case Qt::Key_Left:  changedir_lst.push_back('l'); break;
-    case Qt::Key_Right: changedir_lst.push_back('r'); break;
+    case Qt::Key_W:    changedir_lst.push_back('u'); break;
+    case Qt::Key_S:  changedir_lst.push_back('d'); break;
+    case Qt::Key_A:  changedir_lst.push_back('l'); break;
+    case Qt::Key_D: changedir_lst.push_back('r'); break;
+    case Qt::Key_Space: // 发射子弹
+        game.fireBullet();
+        break;
+    case Qt::Key_I:     // 无敌技能
+        game.getSnake().activateInvincible(5);
+        break;
+    case Qt::Key_P:     // 护盾技能
+        game.getSnake().activateShield();
+        update();
+        break;
     }
 }
