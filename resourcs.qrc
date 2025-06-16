@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/image">
+        <file>SnakeGame.jpg</file>
+        <file>button.png</file>
+    </qresource>
+</RCC>

@@ -6,8 +6,6 @@ class Snake {
     QList<QPoint> snake_body;
     char direction;
 
-
-
 public:
     bool isInvincible = false;
     bool hasShield = false;
@@ -29,6 +27,7 @@ public:
     void activateShield() { hasShield = true; }
 
     void setBody(const QList<QPoint>& newBody) { snake_body = newBody; }
+    int getScore() const;
 
-    QTimer invincibleTimer;
+    QTimer *invincibleTimer;    // QTimer不可拷贝，使用指针避免拷贝
 };
