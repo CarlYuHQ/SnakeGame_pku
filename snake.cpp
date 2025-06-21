@@ -99,6 +99,10 @@ QPoint Snake::getNext() const {
     return getHead() + char2point[direction];
 }
 
-char Snake::getDirection() const{
+char Snake::getDirection() const {
     return direction;
+}
+
+int Snake::getScore() const {
+    return snake_body.size();
 }

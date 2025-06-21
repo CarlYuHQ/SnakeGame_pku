@@ -1,11 +1,12 @@
-#include "gamewidget.h"
+#include "mainwindow.h"
+#include "gamewindow.h"
 
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    GameWidget w;
-    w.show();
+    MainWindow mainWindow;
+    mainWindow.show();
     return a.exec();
 }
