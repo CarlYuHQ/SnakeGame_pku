@@ -2,6 +2,11 @@
 #include <QTimer>
 #include <QList>
 #include <QPoint>
+#include <map> // 添加包含
+
+// 添加 extern 声明
+extern std::map<char, QPoint> char2point; // 全局变量声明
+
 class Snake {
     QList<QPoint> snake_body;
     char direction;

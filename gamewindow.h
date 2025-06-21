@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include <QLabel>
 #include <QKeyEvent>
 #include <QPainter>
 #include "snakegame.h"
@@ -58,6 +59,7 @@ private:
     void startGame();
     void togglePause();
     void saveHighestScore();
+    QLabel* bulletStatusLabel; // 添加子弹状态标签
 };
 
 #endif // GAMEWINDOW_H

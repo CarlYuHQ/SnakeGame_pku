@@ -21,6 +21,13 @@ GameWindow::GameWindow(QWidget *parent) :
     game(Snakegame(Width, Height, Init_len, Init_head, Init_dir))
 {
     ui->setupUi(this);
+
+    // 创建子弹状态标签
+    bulletStatusLabel = new QLabel(this);
+    bulletStatusLabel->setGeometry(1150, 350, 200, 50);
+    bulletStatusLabel->setFont(QFont("黑体", 12));
+    bulletStatusLabel->setText("子弹: 就绪");
+
     setFixedSize(width * gridSize + 300, height * gridSize);
 
     // 从txt文件读取最高分
@@ -124,7 +131,19 @@ void GameWindow::drawBullets(QPainter& painter) {
     painter.setBrush(Qt::blue);
     for (const Bullet& b : game.getBullets()) {
         QPoint p = b.getPosition();
-        painter.drawRect(p.x() * gridSize, p.y() * gridSize, 5, 5); // 小矩形表示子弹
+        painter.drawRect(p.x() * gridSize, p.y() * gridSize, 5, 5); // 子弹当前位置
+
+        // 绘制子弹路径（可视化）
+        QList<QPoint> path = b.getPath();
+        if (path.size() > 1) {
+            painter.setPen(Qt::blue);
+            painter.drawLine(
+                path[0].x() * gridSize + gridSize/2,
+                path[0].y() * gridSize + gridSize/2,
+                path[1].x() * gridSize + gridSize/2,
+                path[1].y() * gridSize + gridSize/2
+                );
+        }
     }
 }
 
@@ -132,6 +151,20 @@ void GameWindow::onTimeout() {
     if (game_over || game_paused) {
         return;
     }
+    // 更新子弹冷却状态
+    int cooldown = game.getBulletCooldown();
+    if (cooldown > 0) {
+        game.setBulletCooldown(cooldown - 1); // 减少冷却计数
+    }
+
+    // 更新UI显示冷却状态
+    if (game.getBulletCooldown() == 0) {
+        ui->bulletStatusLabel->setText("子弹: 就绪");
+    } else {
+        int seconds = (game.getBulletCooldown() * t) / 1000; // 转换为秒
+        ui->bulletStatusLabel->setText(QString("子弹冷却: %1秒").arg(seconds));
+    }
+
     while (!changedir_lst.empty()) {    //清除同向/反向等无意义操作
         char dir_now = game.getSnake().getDirection();
         char dir_next = changedir_lst.front();
@@ -158,6 +191,7 @@ void GameWindow::onTimeout() {
     }
     bool alive = game.step();
     int score = game.getSnake().getScore();
+
     if (!alive) {   //死了退出
         game_over = true;
         game_started = false;
@@ -194,6 +228,7 @@ void GameWindow::onTimeout() {
     }
     ui->labelHighScore->setNum(highestScore);
     ui->labelScore->setNum(score);
+
     update();
 
     new_step = 1;
@@ -223,8 +258,13 @@ void GameWindow::keyPressEvent(QKeyEvent* event)    //在一个step内的所有�
     case Qt::Key_S:  changedir_lst.push_back('d'); break;
     case Qt::Key_A:  changedir_lst.push_back('l'); break;
     case Qt::Key_D: changedir_lst.push_back('r'); break;
+    // case Qt::Key_Space: // 发射子弹
+    //     game.fireBullet();
+    //     break;
     case Qt::Key_Space: // 发射子弹
-        game.fireBullet();
+        if (game.canFireBullet()) {
+            game.fireBullet();
+        }
         break;
     case Qt::Key_I:     // 无敌技能
         game.getSnake().activateInvincible(5);
@@ -279,6 +319,7 @@ void GameWindow::startGame()
         time_cnt = 0;
         srand(time(NULL));
         foodGenerate_time = rand() % (max_foodGenerate_time - min_foodGenerate_time) + min_foodGenerate_time;
+        game.resetBulletCooldown(); // 重置子弹冷却
 
         update();
     }
