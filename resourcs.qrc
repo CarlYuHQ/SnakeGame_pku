@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/image">
+        <file>SnakeGame.jpg</file>
+        <file>button.png</file>
+        <file>blueSnakeHead.png</file>
+        <file>greenSnakeHead.png</file>
+        <file>yellowSnakeHead.png</file>
+        <file>apple.png</file>
+        <file>defense.png</file>
+        <file>background.png</file>
+        <file>scoreBackground.png</file>
+    </qresource>
+</RCC>
