@@ -6,11 +6,13 @@
 using namespace std;
 class Food {
     int remaining_time;
+    bool foodType;
     QPoint location;
 public:
-    Food(int remaining_time, const QPoint& location);
+    Food(int remaining_time, const QPoint& location, bool foodType);
     void step();
     int getTime() const;
+    bool getType() const;
     QPoint getLocation() const;
 };
 class Snakegame{

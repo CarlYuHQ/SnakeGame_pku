@@ -178,6 +178,44 @@
      <string>子弹：就绪</string>
     </property>
    </widget>
+   <widget class="QLabel" name="labelInvincibleRemainingText">
+    <property name="geometry">
+     <rect>
+      <x>1150</x>
+      <y>245</y>
+      <width>150</width>
+      <height>75</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>黑体</family>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>无敌剩余时间：</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelInvincibleRemaining">
+    <property name="geometry">
+     <rect>
+      <x>1300</x>
+      <y>245</y>
+      <width>100</width>
+      <height>75</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>黑体</family>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -185,7 +223,7 @@
      <x>0</x>
      <y>0</y>
      <width>1400</width>
-     <height>21</height>
+     <height>18</height>
     </rect>
    </property>
   </widget>

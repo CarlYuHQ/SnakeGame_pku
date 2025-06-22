@@ -104,9 +104,14 @@ void GameWindow::drawSnake(QPainter& painter) {
 }
 
 void GameWindow::drawFood(QPainter& painter) {
-    painter.setBrush(Qt::red);
     for (const Food& f : game.getFood()) {
         QPoint p = f.getLocation();
+        if(f.getType() == 1){
+            painter.setBrush(Qt::blue);
+        }
+        else{
+            painter.setBrush(Qt::red);
+        }
         painter.drawEllipse(p.x() * gridSize, p.y() * gridSize, gridSize, gridSize);
     }
 }
@@ -228,6 +233,7 @@ void GameWindow::onTimeout() {
     }
     ui->labelHighScore->setNum(highestScore);
     ui->labelScore->setNum(score);
+    ui->labelInvincibleRemaining->setNum(game.getSnake().getInvincibleRemaining());
 
     update();
 

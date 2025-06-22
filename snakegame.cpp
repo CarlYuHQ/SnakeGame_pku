@@ -3,7 +3,7 @@
 #include <ctime>
 using namespace std;
 
-Food::Food(int remaining_time, const QPoint& location) : remaining_time(remaining_time), location(location) {}
+Food::Food(int remaining_time, const QPoint& location, bool foodType) : remaining_time(remaining_time), foodType(foodType), location(location) {}
 
 void Food::step() {	//食物剩余时间更新
     remaining_time--;
@@ -11,6 +11,10 @@ void Food::step() {	//食物剩余时间更新
 
 int Food::getTime() const {
     return remaining_time;
+}
+
+bool Food::getType() const{
+    return foodType;
 }
 
 QPoint Food::getLocation() const {
@@ -150,6 +154,9 @@ bool Snakegame::step() {
 
     auto it_food = foodPoint(next);
     if (it_food != food.end()) {	//下一步有食物
+        if ((*it_food).getType() == 1){  //食物是金食物
+            snake.activateInvincible(10);    //无敌十秒钟
+        }
         if (!snake.move_and_grow()) {	//撞自己了，死
             game_over = 1;
             return 0;
@@ -209,7 +216,8 @@ void Snakegame::generateFood(int remainingtime) {	//随机生成一个食物
         int y = rand() % height;
         QPoint p(x, y);
         if (!deadPoint(p) && !snake.getSnake().contains(p) && foodPoint(p) == food.end()) {	//当前位置是合法的，且不是蛇，且没有食物，才会放置食物
-            food.push_back(Food(remainingtime, p));
+            bool foodtype = (rand()%10 < 3);    //生成的食物有30%概率是金食物
+            food.push_back(Food(remainingtime, p, foodtype));
             return;
         }
     }

@@ -13,9 +13,7 @@ map<char, QPoint> char2point = {	//把方向对应的字符转成QPoint类型
 
 void Snake::activateInvincible(int sec) {
     isInvincible = true;
-    QTimer::singleShot(sec * 1000, [this](){
-        isInvincible = false;
-    });
+    invincibleTimer->start(sec*1000);
 }
 
 Snake::Snake(int len, const QPoint& head, char dir) : direction(dir) {
@@ -23,6 +21,11 @@ Snake::Snake(int len, const QPoint& head, char dir) : direction(dir) {
     for (int i = 0; i < len; i++) {
         snake_body.push_back(head - i * dir_point);
     }
+    invincibleTimer = new QTimer(this); //初始化无敌计时器
+    invincibleTimer->setSingleShot(true);
+    connect(invincibleTimer, &QTimer::timeout, this, [this](){  //到时间清除无敌状态
+        isInvincible = false;
+    });
 }
 
 void Snake::reset(int len, const QPoint& head, char dir) {
@@ -105,4 +108,13 @@ char Snake::getDirection() const {
 
 int Snake::getScore() const {
     return snake_body.size();
+}
+
+int Snake::getInvincibleRemaining() const {
+    if(isInvincible == true){
+        return (invincibleTimer->remainingTime() + 999) / 1000;
+    }
+    else{
+        return 0;
+    }
 }
