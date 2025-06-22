@@ -1,9 +1,9 @@
-#include "snakegame.h"
+﻿#include "snakegame.h"
 #include <cstdlib>
 #include <ctime>
 using namespace std;
 
-Food::Food(int remaining_time, const QPoint& location) : remaining_time(remaining_time), location(location) {}
+Food::Food(int remaining_time, const QPoint& location, bool foodType) : remaining_time(remaining_time), foodType(foodType), location(location) {}
 
 void Food::step() {	//食物剩余时间更新
     remaining_time--;
@@ -13,6 +13,10 @@ int Food::getTime() const {
     return remaining_time;
 }
 
+bool Food::getType() const{
+    return foodType;
+}
+
 QPoint Food::getLocation() const {
     return location;
 }
@@ -20,7 +24,7 @@ QPoint Food::getLocation() const {
 Snakegame::Snakegame(int width, int height,int init_len, const QPoint& init_head, char init_dir)
     : width(width),
     height(height),
-    snake(Snake(init_len, init_head, init_dir)), // 先初始化 snake
+    snake(init_len, init_head, init_dir), // 先初始化 snake
     game_over(0) // 然后初始化 game_over
 {
     srand(time(NULL));
@@ -39,7 +43,6 @@ void Snakegame::foodStep() {	//所有食物剩余时间更新，时间为0的删
 }
 
 bool Snakegame::deadPoint(const QPoint& p) {	//判定这个点撞到会不会死，后期在这里加障碍物判定，撞到自己身上的情况在snake的move函数里判断了
-
     // 检查硬障碍物
     for (const Obstacle& obs : obstacles) {
         if (obs.getType() == Obstacle::HARD && obs.getLocation() == p)
@@ -63,29 +66,13 @@ void Snakegame::reset(int init_len, const QPoint& init_head, char init_dir) {
     food.clear();
     clearObstacles();  // 清空旧障碍物
     // 重新生成障碍物
-    for (int i = 0; i < 25; i++) {
+    for (int i = 0; i < 13; i++) {
         generateObstacle(Obstacle::HARD);
         generateObstacle(Obstacle::SOFT);
     }
 }
 
 bool Snakegame::step() {
-
-    // // 移动子弹
-    // for (auto& bullet : bullets) {
-    //     bullet.move();
-    //     QPoint pos = bullet.getPosition();
-
-    //     // 检查障碍物碰撞
-    //     for (auto it = obstacles.begin(); it != obstacles.end();) {
-    //         if (it->getLocation() == pos) {
-    //             it = obstacles.erase(it);
-    //         } else {
-    //             ++it;
-    //         }
-    //     }
-    // }
-
     // 更新子弹冷却
     if (bulletCooldown > 0) bulletCooldown--;
 
@@ -150,6 +137,9 @@ bool Snakegame::step() {
 
     auto it_food = foodPoint(next);
     if (it_food != food.end()) {	//下一步有食物
+        if ((*it_food).getType() == 1){  //食物是金食物
+            snake.activateInvincible(10);    //无敌十秒钟
+        }
         if (!snake.move_and_grow()) {	//撞自己了，死
             game_over = 1;
             return 0;
@@ -209,7 +199,8 @@ void Snakegame::generateFood(int remainingtime) {	//随机生成一个食物
         int y = rand() % height;
         QPoint p(x, y);
         if (!deadPoint(p) && !snake.getSnake().contains(p) && foodPoint(p) == food.end()) {	//当前位置是合法的，且不是蛇，且没有食物，才会放置食物
-            food.push_back(Food(remainingtime, p));
+            bool foodtype = (rand()%100 < 15);    //生成的食物有15%概率是金食物
+            food.push_back(Food(remainingtime, p, foodtype));
             return;
         }
     }
@@ -234,32 +225,6 @@ int Snakegame::getWidth() const {
 int Snakegame::getHeight() const {
     return height;
 }
-
-// // 新增生成障碍物函数
-// void Snakegame::generateObstacle(Obstacle::Type type) {
-//     int attempts = 0;
-//     QPoint snakeHead = snake.getHead(); // 获取蛇头位置
-
-//     while (attempts++ < 100) {
-//         int x = rand() % width;
-//         int y = rand() % height;
-//         QPoint p(x, y);
-
-//         // 计算与蛇头的曼哈顿距离
-//         int distance = abs(p.x() - snakeHead.x()) + abs(p.y() - snakeHead.y());
-//         if (distance < 8) continue; // 距离小于5格则跳过
-
-//         if (!deadPoint(p) &&
-//             !snake.getSnake().contains(p) &&
-//             foodPoint(p) == food.end() &&
-//             std::none_of(obstacles.begin(), obstacles.end(), [&p](const Obstacle& obs) {
-//                 return obs.getLocation() == p;
-//             })) {
-//             obstacles.append(Obstacle(type, p));
-//             return;
-//         }
-//     }
-// }
 
 // 旋转点坐标
 QPoint rotatePoint(const QPoint& p, int rotation) {
@@ -335,7 +300,7 @@ void Snakegame::generateObstacle(Obstacle::Type type) {
             // 检查与蛇头的距离
             int distance = qAbs(absPos.x() - snakeHead.x()) +
                            qAbs(absPos.y() - snakeHead.y());
-            if (distance < 10) {
+            if (distance < 5) {
                 valid = false;
                 break;
             }
@@ -390,20 +355,6 @@ QList<Obstacle> Snakegame::getObstacles() const {
     return obstacles;
 }
 
-// void Snakegame::fireBullet() {
-//     if (snake.getSnake().size() < 3) return;
-
-//     // 消耗2格长度
-//     QList<QPoint> body = snake.getSnake();
-//     body.pop_back();
-//     body.pop_back();
-//     snake.reset(body.size(), body.front(), snake.getDirection());
-
-//     // 创建子弹
-//     Bullet bullet(snake.getHead(), snake.getDirection());
-//     bullets.append(bullet);
-// }
-
 void Snakegame::fireBullet() {
     if (bulletCooldown > 0) return; // 冷却中不能发射
 
@@ -418,7 +369,3 @@ void Snakegame::fireBullet() {
 QList<Bullet> Snakegame::getBullets() const {
     return bullets; // 返回子弹列表的副本
 }
-// void Bullet::move() {
-//     // 双倍速度：每次移动两个单位
-//     position += char2point[direction] * 2;
-// }

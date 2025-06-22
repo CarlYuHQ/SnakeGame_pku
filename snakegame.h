@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <QTimer>
 #include "obstacle.h"
 #include "snake.h"
@@ -6,11 +6,13 @@
 using namespace std;
 class Food {
     int remaining_time;
+    bool foodType;
     QPoint location;
 public:
-    Food(int remaining_time, const QPoint& location);
+    Food(int remaining_time, const QPoint& location, bool foodType);
     void step();
     int getTime() const;
+    bool getType() const;
     QPoint getLocation() const;
 };
 class Snakegame{
@@ -54,7 +56,7 @@ public:
     int getHeight() const;
 
     QList<Obstacle> obstacles; // 新增障碍物列表
-    //
+
     void generateObstacle(Obstacle::Type type);
     QList<Obstacle> getObstacles() const;
 

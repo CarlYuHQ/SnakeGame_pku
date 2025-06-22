@@ -37,7 +37,8 @@ private:
     int width;
     int height;
     int highestScore = 4;
-    int gridSize = 20;
+    int scoreWidth = 400;
+    int gridSize = 40;  // 20
     int min_foodGenerate_time = 2;
     int max_foodGenerate_time = 15;
     int food_remaining_time = 50;
@@ -50,16 +51,23 @@ private:
     QList<char> changedir_lst;
     bool new_step = true;
     Snakegame game;
+    QLabel* bulletStatusLabel; // 添加子弹状态标签
+    QPixmap snakeHeadImg;  // 绿色蛇头图片
+    QPixmap blueSnakeHeadImg;  // 蓝色蛇头图片
+    QPixmap foodImg;  // 食物图片
+    QPixmap defenseImg;  // 护盾图片
+    QPixmap backgroundImg;  // 游戏背景图片
+    QPixmap scoreBackgroundImg;  // 分数背景图片
 
-    void drawGrid(QPainter& painter);
-    void drawSnake(QPainter& painter);
-    void drawFood(QPainter& painter);
+    void drawGridImage(QPainter& painter);
+    void drawScoreBackgroundImage(QPainter& painter);
+    void drawSnakeImage(QPainter& painter);
+    void drawFoodImage(QPainter& painter);
     void drawObstacles(QPainter& painter);
     void drawBullets(QPainter& painter);
     void startGame();
     void togglePause();
     void saveHighestScore();
-    QLabel* bulletStatusLabel; // 添加子弹状态标签
 };
 
 #endif // GAMEWINDOW_H
